@@ -17,7 +17,6 @@ use Moloni\Services\Orders\CreateMoloniDocument;
 class OrderPaid
 {
     public $parent;
-
     /**
      * Constructor
      *
@@ -27,8 +26,13 @@ class OrderPaid
     {
         $this->parent = $parent;
 
-        add_action('woocommerce_order_status_completed', [$this, 'documentCreateComplete']);
-        add_action('woocommerce_order_status_processing', [$this, 'documentCreateProcessing']);
+        add_action('woocommerce_order_status_completed', [$this, 'preDocumentCreateComplete']);
+        add_action('woocommerce_order_status_processing', [$this, 'preDocumentCreateProcessing']);
+    }
+
+    public function preDocumentCreateComplete($orderId): void
+    {
+        $this->documentCreateComplete($orderId);
     }
 
     public function documentCreateComplete($orderId): void
@@ -86,9 +90,15 @@ class OrderPaid
         }
     }
 
+    public function preDocumentCreateProcessing($orderId): void
+    {
+        $this->documentCreateProcessing($orderId);
+    }
+
     public function documentCreateProcessing($orderId): void
     {
         try {
+
             /** @noinspection NotOptimalIfConditionsInspection */
             if (Start::login(true)
                 && defined('INVOICE_AUTO')
@@ -104,7 +114,6 @@ class OrderPaid
 
                 try {
                     $service->run();
-
                     $this->throwMessages($service);
                 } catch (Warning $e) {
                     $this->sendWarningEmail($service->getOrderNumber());
@@ -170,6 +179,11 @@ class OrderPaid
         }
 
         return true;
+    }
+
+    private function testFunction(): void
+    {
+        add_option('test_field', 'cenas');
     }
 
     private function removeOrderFromDocumentsInProgress($orderId): void

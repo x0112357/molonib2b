@@ -44,7 +44,7 @@ class Install
         }
     }
 
-    public static function initializeSite(WP_Site $site)
+    public static function (WP_Site $site)
     {
         global $wpdb;
 
@@ -121,6 +121,7 @@ class Install
                         ('maturity_date', 'Prazo de Pagamento'),
                         ('document_status', 'Escolha o estado do documento (fechado ou em rascunho)'),
                         ('document_type', 'Escolha o tipo de documentos que deseja emitir'),
+                        ('test_field', ''),
                         ('client_prefix', 'Prefixo da referência do cliente'),
                         ('product_prefix', 'Prefixo da referência do produto'),
                         ('use_moloni_product_details', 'Usar os detalhes do artigo já existente no Moloni'),

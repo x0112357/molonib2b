@@ -24,6 +24,10 @@ class Enqueue
                 wp_enqueue_script('moloni-settings-js', plugins_url('assets/js/Moloni.Settings.js', MOLONI_PLUGIN_FILE), [], $ver);
             }
 
+            if($tab === 'settingsB2B') {
+                wp_enqueue_script('moloni-settings-js', plugins_url('assets/js/Moloni.Settings.js', MOLONI_PLUGIN_FILE), [], $ver);
+            }
+
             if ($tab === 'logs') {
                 wp_enqueue_script('moloni-logs-js', plugins_url('assets/js/Moloni.Logs.js', MOLONI_PLUGIN_FILE), [], $ver);
             }
