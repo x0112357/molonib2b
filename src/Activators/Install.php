@@ -44,7 +44,7 @@ class Install
         }
     }
 
-    public static function (WP_Site $site)
+    public static function initializeSite(WP_Site $site)
     {
         global $wpdb;
 
